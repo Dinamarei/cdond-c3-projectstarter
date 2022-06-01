@@ -123,6 +123,7 @@ jobs:
           command: |
              cd backend
              npm install 
+            
              npm test
             
   scan-frontend:
@@ -333,6 +334,7 @@ jobs:
     #       stack_name: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
     # - revert-migrations
   smoke-test:
+   
     docker:
       - image: python:3.7-alpine3.11
     steps:
@@ -414,6 +416,8 @@ jobs:
 #               # your code here
 #             fi
             
+
+
 
 workflows:
   default:
