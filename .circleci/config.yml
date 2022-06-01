@@ -222,7 +222,7 @@ jobs:
       #    stack_name: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
   run-migrations:
     docker:
-      - image: cimg/node:13.8.0
+      - image: cimg/node:14.5.3
     steps:
       - checkout
       - run:
