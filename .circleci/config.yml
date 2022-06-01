@@ -251,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:stable
+      - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - checkout
@@ -279,16 +279,17 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm install
             npm run build
-            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      # - destroy-environment:
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive      # - destroy-environment:
       #     stack_name: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
       # - destroy-environment:
       #     stack_name: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations                    
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image:  python:3.7-alpine3.11
     steps:
       - checkout
       - add_ssh_keys:
@@ -300,25 +301,28 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # sudo apk add --update ansible
-            # sudo apk add --update nodejs npm
-            # # for delete env and revert migration
-            # sudo apk add --update curl
+            apk add --update ansible
+            apk add --update nodejs npm
+            # for delete env and revert migration
+            apk add --update curl
             pip install awscli
-      - run:
-          name: Package backend
-          command: |
-            cd backend
-            npm run build
-            tar -czf artifact.tar.gz dist/* package*
+      # - run:
+      #     name: Package backend
+      #     command: |
+      #       cd backend
+      #       npm run build
+      #       tar -czf artifact.tar.gz dist/* package*
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
-
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
     # - destroy-environment:
