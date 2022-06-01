@@ -236,7 +236,6 @@ jobs:
           name: Run migrations
           command: |
             cd backend 
-            npm install
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to memstash
@@ -438,14 +437,14 @@ workflows:
               only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [run-migrations]
+      # - deploy-backend:
+      #     requires: [run-migrations]
+      # - smoke-test:
+      #     requires: [deploy-backend, deploy-frontend]
 
       # - cloudfront-update:
       #     requires: [smoke-test]
