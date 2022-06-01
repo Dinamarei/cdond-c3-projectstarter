@@ -38,8 +38,8 @@ commands:
     description: Install Node.js 13
     steps: 
       - run:
-        curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-        sudo apt install -y nodejs
+          curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+          sudo apt install -y nodejs
 
   # revert-migrations:
   #   description: Revert the last migration if successfully run in the current workflow.
@@ -248,7 +248,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - restore_cache:
-        keys: [frontend-deps]
+          keys: [frontend-deps]
       - run:
           name: Install dependencies
           command: |
@@ -284,7 +284,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-        keys: [backend-deps]
+          keys: [backend-deps]
       - run:
           name: Install dependencies
           command: |
