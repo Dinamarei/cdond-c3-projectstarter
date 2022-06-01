@@ -389,10 +389,6 @@ workflows:
       #     requires: [build-backend]
       # - scan-backend:
       #     requires: [build-backend]
-<<<<<<< HEAD
-=======
-
->>>>>>> 77f61b69143ee816095aef0d75b2120a71ffe442
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-backend]
       #     filters:
@@ -407,10 +403,8 @@ workflows:
       # - deploy-backend:
       #     requires: [run-migrations]
       - smoke-test
-<<<<<<< HEAD
           # requires: [deploy-backend, deploy-frontend]
-=======
->>>>>>> 77f61b69143ee816095aef0d75b2120a71ffe442
+
       # - cloudfront-update:
       #     requires: [smoke-test]
       # - cleanup:
