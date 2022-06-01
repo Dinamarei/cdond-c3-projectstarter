@@ -263,9 +263,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo yum install -y gcc-c++ make 
+            yum install -y gcc-c++ make 
             curl -sL https://rpm.nodesource.com/setup_14.x | bash - 
-            sudo yum install -y nodejs
+            yum install -y nodejs
       - run:
           name: Get backend url
           command: |
@@ -300,10 +300,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apk add --update ansible
-            sudo apk add --update nodejs npm
-            # for delete env and revert migration
-            sudo apk add --update curl
+            # sudo apk add --update ansible
+            # sudo apk add --update nodejs npm
+            # # for delete env and revert migration
+            # sudo apk add --update curl
             pip install awscli
       - run:
           name: Package backend
