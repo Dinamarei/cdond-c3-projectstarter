@@ -427,12 +427,12 @@ workflows:
               only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
       - deploy-frontend:
-          requires: [run-migrations]
+          requires: [configure-migrations]
       - deploy-backend:
-          requires: [run-migrations]
+          requires: [configure-migrations]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
 
